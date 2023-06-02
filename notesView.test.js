@@ -5,6 +5,9 @@
 const fs = require('fs');
 const NotesView = require('./notesView');
 const NotesModel = require('./notesModel');
+const NotesClient = require('./notesClient');
+
+jest.mock('./notesClient');
 
 
 describe('Notes View', () => {
@@ -56,6 +59,25 @@ describe('Notes View', () => {
         expect(allNoteDivs[0].textContent).toBe("this is the first user input test");
         expect(allNoteDivs[1].textContent).toBe("this is the second user input test");
         expect(inputEl.value).toBe("");
+
+    });
+
+    it('displays notes from the API',()=>{
+        NotesClient.mockClear();
+        document.body.innerHTML = fs.readFileSync('./index.html');
+        const model = new NotesModel();
+        const mockClient = new NotesClient();
+        const view = new NotesView(model, mockClient);
+        
+        mockClient.loadNotes.mockImplementation((callback) => {
+            callback(['test note']);
+        });
+
+        view.displayNotesFromApi();
+
+        const allNoteDivs = document.querySelectorAll('div.note');
+        expect(allNoteDivs.length).toBe(1);
+        expect(allNoteDivs[0].textContent).toBe("test note");
 
     });
 });
