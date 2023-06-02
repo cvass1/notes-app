@@ -7,4 +7,8 @@ client = new NotesClient();
 view = new NotesView(model, client);
 
 view.displayNotesFromApi();
+// let note = "hello!"
+// client.createNote(note, (data) => {
+//     console.log(data);
+// });
 

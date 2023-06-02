@@ -25,14 +25,21 @@ describe('Notes View', () => {
     });
 
     it('allows user to input a new note', () =>{
+        NotesClient.mockClear();
         document.body.innerHTML = fs.readFileSync('./index.html')
         const model = new NotesModel();
-        const view = new NotesView(model);
+        const mockClient = new NotesClient();
+        const view = new NotesView(model, mockClient);
+
 
         const addNoteButton = document.querySelector('#add-note-button');
         const inputEl = document.querySelector('#user-input');
         inputEl.value = "this is a user input test";
+
+
         addNoteButton.click();
+
+        expect(mockClient.createNote).toHaveBeenCalledTimes(1);
 
         const allNoteDivs = document.querySelectorAll('div.note');
         expect(allNoteDivs.length).toBe(1);
@@ -41,9 +48,12 @@ describe('Notes View', () => {
     });
 
     it('allows user to input multiple notes', () =>{
+        NotesClient.mockClear();
+
         document.body.innerHTML = fs.readFileSync('./index.html')
         const model = new NotesModel();
-        const view = new NotesView(model);
+        const mockClient = new NotesClient();
+        const view = new NotesView(model, mockClient);
 
         const addNoteButton = document.querySelector('#add-note-button');
         const inputEl = document.querySelector('#user-input');
@@ -53,6 +63,8 @@ describe('Notes View', () => {
         
         inputEl.value = "this is the second user input test";
         addNoteButton.click();
+
+        expect(mockClient.createNote).toHaveBeenCalledTimes(2);
 
         const allNoteDivs = document.querySelectorAll('div.note');
         expect(allNoteDivs.length).toBe(2);
@@ -80,4 +92,7 @@ describe('Notes View', () => {
         expect(allNoteDivs[0].textContent).toBe("test note");
 
     });
+
+
+
 });

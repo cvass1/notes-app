@@ -14,6 +14,7 @@ class NotesView {
 
     addNewNote() {
         this.model.addNote(this.inputEl.value);
+        this.client.createNote(this.inputEl.value,() => {});
         this.displayNotes();
     }
 
@@ -36,9 +37,7 @@ class NotesView {
 
     displayNotesFromApi() {
         this.client.loadNotes((notesData)=>{
-            notesData.forEach((note) => {
-                this.model.addNote(note);
-            });
+            this.model.setNotes(notesData);
             this.displayNotes();
         });
     }
