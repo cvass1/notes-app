@@ -38,4 +38,23 @@ describe('NotesClient',() => {
             done();
         });
     });
+
+    it('resets all notes', (done)=>{
+        const client = new NotesClient();
+        const url = "http://localhost:3000/notes";
+        const options = {
+            method: "DELETE",
+            };
+
+        fetch.mockResponseOnce(JSON.stringify(
+            ['']
+            ));
+        
+        client.resetNotes((data)=>{
+            expect(fetch).toHaveBeenCalledWith(url,options);
+            expect(data).toEqual(['']);
+            done();
+        });
+
+    });
 });

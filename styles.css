@@ -12,7 +12,7 @@ h1 {
   
   body {
     background: white;
-    width: 600px;
+    width: 800px;
     margin: auto;
     margin-top: 20px;
     padding: 20px;
@@ -25,7 +25,7 @@ h1 {
   }
   
   input[type=text] {
-    width: 80%;
+    width: 65%;
     background: #fefefe;
     border-radius: 4px;
     padding: 10px 8px;

@@ -93,6 +93,27 @@ describe('Notes View', () => {
 
     });
 
+    it('resets all notes', () => {
+        NotesClient.mockClear();
+        document.body.innerHTML = fs.readFileSync('./index.html')
+        const model = new NotesModel();
+        const mockClient = new NotesClient();
+        const view = new NotesView(model, mockClient);
+
+        model.addNote("test note");
+        view.displayNotes();
+
+        const resetNotesButton = document.querySelector('#reset-notes-button');
+
+        mockClient.resetNotes.mockImplementation((callback) => {
+            callback(['']);
+        });
+
+        resetNotesButton.click();
+        expect(mockClient.resetNotes).toHaveBeenCalledTimes(1);
+
+    });
+
 
 
 });
