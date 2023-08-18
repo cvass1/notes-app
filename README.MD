@@ -11,6 +11,22 @@ A notes javacript web application that runs inside the user browser and communic
 - Use the DOM to manipulate the web page structure and content.
 - Use `fetch` to send HTTP requests to a remote server.
 
+## How to run
+
+Install dependencies by running `npm install` in the top level and `/notes-app-backend` directories.
+
+To start the `/notes-app-backend` server:
+
+```shell
+npm start
+```
+
+To view the notes webpage:
+
+```shell
+open index.html
+```
+
 ### Technologies
 
 - JavaScript
